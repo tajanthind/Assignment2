@@ -69,10 +69,13 @@ function cellClicked(cell) {
         --empty;
 
         // TODO: document this code from class
-        // 
+        // sets the content of the clicked cell to the current player's mark
         cell.innerHTML = player;
+        //checks whether or not there is a winner
         checkWin();
+        //flips (changes) the current player
         player = (player === "X") ? "O" : "X";
+        //updates the message to current PLAYER
         document.getElementById("player").innerHTML = player;
     }
 }
@@ -87,7 +90,10 @@ function checkWin() {
             board[winSets[i][1]].innerHTML == board[winSets[i][2]].innerHTML &&
             board[winSets[i][0]].innerHTML != "") {
 
-            console.log("We have a winner!");
+            gameOver = true;
+            document.getElementById("winner").innerHTML = player + " Wins!";
+            displayWin(true);
+            break;
 
             // TODO: replace console.log("We have a winner!") with:
             //  - set gameOver variable: game is now over  
@@ -95,6 +101,7 @@ function checkWin() {
             //  - call displayWin(true) function
             //  - break out of this loop: no point in continuing
         }
+        break;
     }
 
     // TODO: if there are no empty cells left and game is not yet over,
@@ -102,6 +109,11 @@ function checkWin() {
     // - set gameOver variable: game is now over  
     // - display "No one wins! :(" in the winner H3
     // - call displayWin(true) function
+    if (empty === 0) {
+        gameOver = true;
+        document.getElementById("winner").innerHTML = player + " No one wins! :(";
+        displayWin(true);
+    }
 
 }
 
